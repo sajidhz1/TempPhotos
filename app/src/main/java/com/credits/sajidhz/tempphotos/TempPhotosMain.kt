@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -38,6 +39,13 @@ class TempPhotosMain : AppCompatActivity() {
             } catch (e: IOException) {
                 Toast.makeText(this, "Could not create file!", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        shareButton.setOnClickListener{
+            val share = Intent(Intent.ACTION_SEND)
+            share.type = "image/jpeg"
+            share.putExtra(Intent.EXTRA_STREAM, Uri.parse(imageFilePath));
+            startActivity(Intent.createChooser(share, "Share Image"));
         }
     }
 
